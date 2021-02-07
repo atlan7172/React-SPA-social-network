@@ -1,7 +1,9 @@
 import * as React from "react";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogsReducer";
+import {sendMessageCreator} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {withAuthRedirect} from "../HoC/withAuthRedirect";
+import {compose} from "redux";
 
 
 let mapStateToProps = (state) => {
@@ -12,15 +14,16 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        updateNewMessageBody: (body) => {
-            dispatch(updateNewMessageBodyCreator(body))
-        },
-        sendMessage: () => {
-            dispatch(sendMessageCreator())
+        sendMessage: (newMessageBody) => {
+            dispatch(sendMessageCreator(newMessageBody))
         }
     }
 }
 
-const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+export default compose(                               // Упрощенный синтаксис оборачивания Компонент
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect)                                 // Функция, которая отвечает за Логинизацию, если незалогинены, то скрывает Компонент
+    (Dialogs);
 
-export default DialogsContainer
+
+

@@ -1,19 +1,9 @@
 import * as React from "react";
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {setAuthUserData} from "../../redux/authReducer";
+import {logoutThunk} from "../../redux/authReducer";
 
 class HeaderContainer extends React.Component {
-
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}).then(response => {
-            if (response.data.resultCode === 0) {            //  resultCode === 0 , озночает типа всё прошло без ошибок
-                let {id, login, email} = response.data.data; // тут мы производим деструктуризацию
-                this.props.setAuthUserData(id, email, login) // все полученные свойства передаем в ЭКШН в стэйт
-            }
-        })
-    }
 
     render() {
         return <Header {...this.props}/>
@@ -25,4 +15,4 @@ const mapStateToProps = (state) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
+export default connect(mapStateToProps, {logoutThunk})(HeaderContainer) // Оборачиваем компоненту HeaderContainer, передаем данные из authReducer

@@ -1,46 +1,42 @@
 import * as React from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/profileReducer";
+import {getStatus, getUserProfile, updateStatus} from "../../redux/profileReducer";
 import {withRouter} from "react-router";
+import {withAuthRedirect} from "../HoC/withAuthRedirect";
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() {
-        let userId = this.props.match.params.userId
-        if (!userId) {  //если userId не передается в УРЛ, то по умолчанию отображаем userId-2
-            userId = 2
+    componentDidMount() {                              // Life cycle, который запускается только при отрисовке компонента
+        let userId = this.props.match.params.userId    // Берем данные из URL-а
+        if (!userId) {                                 // Если userId не передается в УРЛ, то по умолчанию отображаем наш аккаунт
+            userId = this.props.myID
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data)//
-            })
+        this.props.getUserProfile(userId) //thunk, получаем зарегестрированного пользователя, данные с сервера вносим в profileReducer.state.profile
+        this.props.getStatus(userId)      //thunk, в profileReducer.state.status вносим данные с сервера
     }
 
     render() {
         return (
             <div>
-                <Profile profile={this.props.profile}/>
+                <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
             </div>
         )
     }
 }
 
-
-
-
-
-
-
-
-
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status,
+    myID: state.auth.userId
 })
 
-let WithUrlDataComponent = withRouter(ProfileContainer)  //Обернули ProfileContainer в контейнер WithUrlDataComponent, нужен для того чтобы в ProfileContainer прокинуть данные из URL
+export default compose(                                                                   // Упрощенный синтаксис прокидывания данных в Компоненту
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),  // Прокидываем свойства из profileReducer
+    withRouter,                                                                           // HoC который нужен для считывания УРЛа
+    withAuthRedirect                                                                      // Функция, которая отвечает за Логинизацию, если незалогинены, то скрывает Компонент
+)(ProfileContainer)
 
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataComponent)  //Функцией connect прокидывает данные в WithUrlDataComponent
 
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
+import {addPost} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 
@@ -12,16 +12,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateNewPostText: (text) => { //в параметре text содержится text из MyPosts
-            let action = updateNewPostTextActionCreator(text) //в параметре text содержится text из MyPosts
-            dispatch(action) // в метод dispatch мы передаем ЭКШН updateNewPostTextActionCreator
-        },
-        addPost: () => {
-            dispatch(addPostActionCreator()) // вызываем метод dispatch, и передаем в него ЭКШН addPostActionCreator
+        onAddPost: (newPost) => {
+            dispatch(addPost(newPost))
         }
     }
 }
 
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
-
 export default MyPostsContainer
