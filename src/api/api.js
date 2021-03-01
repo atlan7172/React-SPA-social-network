@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const instance = axios.create({     //Создаем объект, который упрощает синтаксис ввода запросов на сервер
+// Объекты, методы которых содержат API сервера
+const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {

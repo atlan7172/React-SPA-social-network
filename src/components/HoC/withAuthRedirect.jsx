@@ -6,17 +6,15 @@ let mapStateToProps = (state) => ({              //withAuthRedirect должен
     isAuth: state.auth.isAuth
 })
 
-
-export const withAuthRedirect = (Component) => {    //HOC
+export const withAuthRedirect = (Component) => {    //HOC - защищает от незаристрированных пользователей
 
     class RedirectComponent extends React.Component {
-        render() {  // Если пользователь не зарегестрирован скидывает нас на login, в ином случаи отрисовываем нужный компонент
+        render() {
             if (this.props.isAuth === false) return <Redirect to='/login'/>
             else return <Component {...this.props}/>
         }
     }
 
-    let ConnectedAuthRedirectComponent = connect(mapStateToProps)(RedirectComponent)  // Оборачиваем компонент RedirectComponent, чтобы передать в него переменную isAuth
-
+    let ConnectedAuthRedirectComponent = connect(mapStateToProps)(RedirectComponent)
     return ConnectedAuthRedirectComponent
 }

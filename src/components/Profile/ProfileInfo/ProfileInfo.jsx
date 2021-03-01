@@ -1,10 +1,10 @@
-import Preloader from "../../common/Preloader/Preloader";
+import rabbit from '../../../assets/images/rabbit.jpg'
 import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
 
-    if (!props.profile) {
-        return <Preloader/>
+    if (!props.profile.photos.large) {         // Если пользователь не зареганный, то показываем картинку по умолчанию
+        return <img src={rabbit}/>
     }
     return (
         <div>

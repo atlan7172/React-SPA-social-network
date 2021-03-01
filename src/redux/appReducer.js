@@ -3,7 +3,7 @@ import {getAuthUserData} from "./authReducer";
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
 
 let initialState = {
-    initialized: false
+    initialized: false // Переменная которая служит флажком, отрисовывать App или нет
 }
 
 const appReducer = (state = initialState, action) => {
@@ -21,8 +21,8 @@ const appReducer = (state = initialState, action) => {
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS})
 
 export const initializeApp = () => (dispatch) => {
-    let promise = dispatch(getAuthUserData())
-    promise.then(() => {
+    let promise = dispatch(getAuthUserData())      // Санка, получаем пользователя
+    promise.then(() => {                           // initialized - true
         dispatch(initializedSuccess())
     })
 }

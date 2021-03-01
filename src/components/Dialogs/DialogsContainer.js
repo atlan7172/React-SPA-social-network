@@ -8,7 +8,8 @@ import {compose} from "redux";
 
 let mapStateToProps = (state) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages
     }
 }
 
@@ -20,10 +21,10 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default compose(                               // Упрощенный синтаксис оборачивания Компонент
+export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect)                                 // Функция, которая отвечает за Логинизацию, если незалогинены, то скрывает Компонент
-    (Dialogs);
+    withAuthRedirect)                             //withAuthRedirect HOC - отвечает за Логинизацию, если незалогинены, то скрывает Компонент
+(Dialogs);
 
 
 

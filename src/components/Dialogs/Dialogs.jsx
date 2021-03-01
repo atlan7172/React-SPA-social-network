@@ -6,20 +6,21 @@ import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 const Dialogs = (props) => {
 
-    let dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>) //отрисовка массива через мап
-    let messagesElements = props.dialogsPage.messages.map(message => <Message message={message.message}/>)         //отрисовка массива через мап
+    let dialogsElements = props.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
+    let messagesElements = props.messages.map(message => <Message message={message.message}/>)
 
     let addNewMessage = (values) => {
         props.sendMessage(values.newMessageBody)
+        values.newMessageBody = ''
     }
-
-    return ( // onSubmit={addNewMessage}, вызываем функцию addNewMessage в которую передаем собранные данные из handleSubmit
+// onSubmit={addNewMessage}, вызываем функцию addNewMessage в которую передаем собранные данные из AddMessageForm-handleSubmit
+    return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
             <div className={s.messages}>
-                <div>{messagesElements}</div>
+                {messagesElements}
             </div>
             <AddMessageForm onSubmit={addNewMessage}/>
         </div>

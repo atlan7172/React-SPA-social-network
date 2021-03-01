@@ -19,14 +19,13 @@ const dialogsReducer = (state = initialState, action) => {
             let body = action.newMessageBody
             return {
                 ...state,
-                messages: [...state.messages, {id: 6, message: body}],
-                newMessageBody: ''
+                messages: [...state.messages, {id: 6, message: body}]
             }
         default:
             return state;
     }
 }
 
-// Action-ы которые передаются в метод dispatch
+// ACTIONS
 export const sendMessageCreator = (newMessageBody) => ({type: SEND_MESSAGE, newMessageBody: newMessageBody})
 export default dialogsReducer

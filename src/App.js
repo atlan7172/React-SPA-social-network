@@ -14,11 +14,11 @@ import Preloader from "./components/common/Preloader/Preloader";
 
 class App extends React.Component {
 
-    componentDidMount() {            // Life cycle, который запускается только при отрисовке компонента
-        this.props.initializeApp()   //thunk, получаем зарегистрированного пользователя с сервера, и appReducer.state.initialized становится true
+    componentDidMount() {
+        this.props.initializeApp()   // Thunk, получаем зарегистрированного пользователя с сервера, и appReducer.state.initialized становится true
     }
 
-    render() {
+    render() {                       // Пока не получим данные с сервера, будем показывать экран загрузки
         if (!this.props.initialized) {
             return <Preloader/>
         }
@@ -29,7 +29,7 @@ class App extends React.Component {
                 <div className="app-wrapper-content">
                     <Route path='/dialogs'
                            render={() => <DialogsContainer/>}/>
-                    <Route path='/profile/:userId?'                // '?' это опциональный параметр, необязательный
+                    <Route path='/profile/:userId?'
                            render={() => <ProfileContainer/>}/>
                     <Route path='/users'
                            render={() => <UsersContainer/>}/>
@@ -46,8 +46,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    withRouter, //нужна эта обертка, чтобы роут с роутами нормально работал
+    withRouter,          // Нужна эта обертка, чтобы роут с роутами нормально работал
     connect(mapStateToProps, {initializeApp}))
 (App);
-
-/*Route - следят за URL, и как только он менятеся они его отрисовывают*/

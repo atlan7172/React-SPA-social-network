@@ -15,4 +15,4 @@ const mapStateToProps = (state) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {logoutThunk})(HeaderContainer) // Оборачиваем компоненту HeaderContainer, передаем данные из authReducer
+export default connect(mapStateToProps, {logoutThunk})(HeaderContainer)

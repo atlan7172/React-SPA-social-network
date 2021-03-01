@@ -1,6 +1,5 @@
 import {usersAPI} from "../api/api";
 
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -71,41 +70,40 @@ export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (count) => ({type: SET_TOTAL_USERS_COUNT, count})
 export const toggleIsFetching = (isFetching) => ({type: TOGAL_IS_FETCHING, isFetching})
-export const toggleFollowingProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId})
+export const toggleFollowingProgress = (isFetching, userId) => ({
+    type: TOGGLE_IS_FOLLOWING_PROGRESS,
+    isFetching,
+    userId
+})
 
 //THUNK'S
 export const getUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true)) // создает картинку, когда файлы подгружаются
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(toggleIsFetching(false)) // картинка загрузки исчезает, так как с сервера получили данные
-            dispatch(setUsers(data.items))// передаем значения в массив
-            dispatch(setTotalUsersCount(data.totalCount)) //Берем с сервера общее кол-во людей  и присваиваем переменной totalUsersCount
-        })
+    return async (dispatch) => {
+        dispatch(toggleIsFetching(true))          // создает картинку, когда файлы подгружаются
+        let response = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(toggleIsFetching(false))        //картинка загрузки исчезает, так как с сервера получили данные
+        dispatch(setUsers(response.items))                //передаем значения в массив
+        dispatch(setTotalUsersCount(response.totalCount)) //Берем с сервера общее кол-во людей  и присваиваем переменной totalUsersCount
     }
 }
 export const follow = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))   // создает картинку, когда файлы подгружаются
-        usersAPI.follow(userId)
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+        let response = await usersAPI.follow(userId)
+        if (response.data.resultCode == 0) {
+            dispatch(followSuccess(userId))
+        }
+        dispatch(toggleFollowingProgress(false, userId))
     }
 }
 export const unfollow = (userId) => {
-    return (dispatch) => {
-        dispatch(toggleFollowingProgress(true, userId))
-        usersAPI.unfollow(userId)
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(unfollowSuccess(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
+    return async (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))   // создает картинку, когда файлы подгружаются
+        let response = await usersAPI.unfollow(userId)
+        if (response.data.resultCode == 0) {
+            dispatch(unfollowSuccess(userId))
+        }
+        dispatch(toggleFollowingProgress(false, userId))
     }
 }
 
