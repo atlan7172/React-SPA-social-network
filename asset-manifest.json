@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/React-SPA-social-network/static/css/main.21eaaaa1.chunk.css",
+    "main.js": "/React-SPA-social-network/static/js/main.3ecd6a8b.chunk.js",
+    "main.js.map": "/React-SPA-social-network/static/js/main.3ecd6a8b.chunk.js.map",
+    "runtime-main.js": "/React-SPA-social-network/static/js/runtime-main.b7bfd004.js",
+    "runtime-main.js.map": "/React-SPA-social-network/static/js/runtime-main.b7bfd004.js.map",
+    "static/js/2.e2be30ce.chunk.js": "/React-SPA-social-network/static/js/2.e2be30ce.chunk.js",
+    "static/js/2.e2be30ce.chunk.js.map": "/React-SPA-social-network/static/js/2.e2be30ce.chunk.js.map",
+    "static/js/3.97c7f00d.chunk.js": "/React-SPA-social-network/static/js/3.97c7f00d.chunk.js",
+    "static/js/3.97c7f00d.chunk.js.map": "/React-SPA-social-network/static/js/3.97c7f00d.chunk.js.map",
+    "index.html": "/React-SPA-social-network/index.html",
+    "static/css/main.21eaaaa1.chunk.css.map": "/React-SPA-social-network/static/css/main.21eaaaa1.chunk.css.map",
+    "static/js/2.e2be30ce.chunk.js.LICENSE.txt": "/React-SPA-social-network/static/js/2.e2be30ce.chunk.js.LICENSE.txt",
+    "static/media/avatar.1c45f064.jpg": "/React-SPA-social-network/static/media/avatar.1c45f064.jpg",
+    "static/media/header-wallpaper.f0d11c61.jpg": "/React-SPA-social-network/static/media/header-wallpaper.f0d11c61.jpg",
+    "static/media/load.e8c59371.svg": "/React-SPA-social-network/static/media/load.e8c59371.svg",
+    "static/media/rabbit.f72a6f43.jpg": "/React-SPA-social-network/static/media/rabbit.f72a6f43.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b7bfd004.js",
+    "static/js/2.e2be30ce.chunk.js",
+    "static/css/main.21eaaaa1.chunk.css",
+    "static/js/main.3ecd6a8b.chunk.js"
+  ]
+}
