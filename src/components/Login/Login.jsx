@@ -10,7 +10,7 @@ const Login = ({isAuth, loginThunk}) => {
         loginThunk(formData.email, formData.password, formData.rememberMe)
     }
 
-    if (isAuth) {                    // Если зарегестрированный пользователь, то переносит  на страницу профайл
+    if (isAuth) { // Если зарегестрированный пользователь, то переносит  на страницу профайл
         return <Redirect to={'/profile'}/>
     }
 
@@ -26,4 +26,4 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps, {loginThunk, logoutThunk})(Login);
+export default connect(mapStateToProps, {loginThunk})(Login);

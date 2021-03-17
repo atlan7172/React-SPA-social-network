@@ -30,14 +30,14 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 
 //THUNKS
 export const getAuthUserData = () => async (dispatch) => {
-    let response = await authAPI.me()                          // Проверяем, залогинены или нет
-    if (response.data.resultCode === 0) {                      // resultCode === 0, означает что данные получены
-        let {id, login, email} = response.data.data;           // Деструктуризация
-        dispatch(setAuthUserData(id, email, login, true))// Диспатчим ЭКШН
+    let response = await authAPI.me()
+    if (response.data.resultCode === 0) {
+        let {id, login, email} = response.data.data;
+        dispatch(setAuthUserData(id, email, login, true))
     }
 }
 
-export const loginThunk = (email, password, rememberMe) => async (dispatch) => { // Делает LogIn пользователя
+export const loginThunk = (email, password, rememberMe) => async (dispatch) => {
     let response = await authAPI.login(email, password, rememberMe)
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
@@ -47,7 +47,7 @@ export const loginThunk = (email, password, rememberMe) => async (dispatch) => {
     }
 }
 
-export const logoutThunk = () => async (dispatch) => {   // Делает LogOut пользователя
+export const logoutThunk = () => async (dispatch) => {
     let response = await authAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))

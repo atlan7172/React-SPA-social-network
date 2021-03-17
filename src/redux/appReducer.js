@@ -3,7 +3,7 @@ import {getAuthUserData} from "./authReducer";
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
 
 let initialState = {
-    initialized: false // Переменная которая служит флажком, отрисовывать App или нет
+    initialized: false
 }
 
 const appReducer = (state = initialState, action) => {
@@ -20,7 +20,7 @@ const appReducer = (state = initialState, action) => {
 
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS})
 
-export const initializeApp = () => (dispatch) => {
+export const initializeApp = () => (dispatch) => { // React сам передаст внутренней функции параметр Диспатч
     let promise = dispatch(getAuthUserData())      // Санка, получаем пользователя
     promise.then(() => {                           // initialized - true
         dispatch(initializedSuccess())

@@ -46,6 +46,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    withRouter,          // Нужна эта обертка, чтобы роут с роутами нормально работал
+    withRouter, // Нужна эта обертка, чтобы роут с роутами нормально работал
     connect(mapStateToProps, {initializeApp}))
 (App);

@@ -23,7 +23,7 @@ let mapDispatchToProps = (dispatch) => {
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect)                             //withAuthRedirect HOC - отвечает за Логинизацию, если незалогинены, то скрывает Компонент
+    withAuthRedirect) //withAuthRedirect HOC - отвечает за Логинизацию, если незалогинены, то скрывает Компонент
 (Dialogs);
 
 
